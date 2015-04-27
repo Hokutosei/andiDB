@@ -2,33 +2,43 @@ package main
 
 import (
 	"fmt"
+	"bytes"
 	"net/http"
-	"net/url"
+	"io/ioutil"
 	"os"
+	"encoding/json"
 )
 
 // post to server
 func post(cmd string, key string, values []string) {
-	v := url.Values{}
-	v.Set("command", cmd)
-	v.Add("key", key)
+	url := "http://localhost:8000/post"
 
-	for i, item := range values {
-		hashKey := fmt.Sprintf("%s", string(i))
-		v.Add(hashKey, string(item))
+	data := map[string]interface{}{
+		"cmd": cmd,
+		"key": key,
+		"values": values,
 	}
+	mJSON, _ := json.Marshal(data)
+	content := bytes.NewReader(mJSON)
 
-	fmt.Println(v)
+	req, _ := http.NewRequest("POST",url, content)
 
-	// resp, err := http.PostForm("http://localhost:8000/post", url.Values{"command": {cmd}, "key": {key}, "values": {values}})
-	resp, err := http.PostForm("http://localhost:8000/post", v)
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("User-Agent", "andiDB")
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+
 	if err != nil {
-		fmt.Println("err post: ", err)
-		return
+		panic(err)
 	}
+	defer resp.Body.Close()
 
-	fmt.Println(resp)
+	fmt.Println("response: ", resp.Status)
+	body, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println("body: ", string(body))
 }
+
 
 func main() {
 	fmt.Println("post")
