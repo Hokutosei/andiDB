@@ -45,6 +45,7 @@ func Cmd(cmd string, key string, values []interface{}, resultChan chan ResponseD
 
 	case lpush:
 		// lpush()
+		resultChan <- ResponseData{200, LpushCmd(key, values)}
 
 	}
 }
