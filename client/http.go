@@ -13,7 +13,6 @@ func main() {
 	fmt.Println("post")
 
 	argsWithProg := os.Args
-	fmt.Println(argsWithProg)
 
 	command := argsWithProg[1]
 	fmt.Println(command)

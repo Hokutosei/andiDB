@@ -9,6 +9,7 @@ import (
 
 // Input entrypoint for HTTP client
 func Input(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("handled!")
 	var c command.Command
 	_ = c
 }
@@ -18,4 +19,5 @@ func main() {
 	fmt.Println("started!")
 
 	http.HandleFunc("/post", Input)
+	http.ListenAndServe(":8000", nil)
 }
