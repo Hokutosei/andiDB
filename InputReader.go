@@ -22,7 +22,24 @@ func Input(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	command.Cmd(inputPost.Command, inputPost.Key, inputPost.Values)
+	t := make(chan command.ResponseData)
+	go command.Cmd(inputPost.Command, inputPost.Key, inputPost.Values, t)
+
+	result := <-t
+	RespondObjectToJSON(w, result)
+}
+
+// RespondObjectToJSON send json response to client
+func RespondObjectToJSON(w http.ResponseWriter, object interface{}) {
+	js, err := json.Marshal(object)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	//fmt.Println(js)
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(js)
 }
 
 // ReadPost extract post request from http client

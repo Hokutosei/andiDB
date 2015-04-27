@@ -1,9 +1,6 @@
 package command
 
-import (
-	"andiDB/storage"
-	"fmt"
-)
+import "fmt"
 
 // Command Database command interface
 type Command interface {
@@ -11,39 +8,43 @@ type Command interface {
 }
 
 const (
-	get = "get"
-	set = "set"
+	get    = "get"
+	set    = "set"
+	lpush  = "lpush"
+	lrange = "lrange"
 )
 
-// Cmd command selector
-func Cmd(cmd string, key string, values []interface{}) {
-	switch cmd {
-	case get:
-		GetCmd(key)
+// ResponseData data struct to return to user
+type ResponseData struct {
+	Status   int         `json:"status"`
+	Response interface{} `json:"response"`
+}
 
+// Cmd command selector
+// mechanism for distinguishing command/task
+func Cmd(cmd string, key string, values []interface{}, resultChan chan ResponseData) {
+	switch cmd {
+
+	// get command condition
+	case get:
+		resp := GetCmd(key)
+		resultChan <- ResponseData{200, resp}
+
+	// set command condition
 	case set:
+		// validate if values length has more than 1
 		if len(values) > 1 {
 			fmt.Println("must have only one value")
+			d := ResponseData{500, ""}
+			resultChan <- d
 			return
 		}
+		resp := SetCmd(key, values[0].(string))
+		d := ResponseData{200, resp}
+		resultChan <- d
 
-		SetCmd(key, values[0].(string))
+	case lpush:
+		// lpush()
 
 	}
-}
-
-// GetCmd get command implementation
-// @param key string
-// @param value string
-func GetCmd(key string) {
-	result := storage.StringDb[key]
-	fmt.Println(result)
-}
-
-// SetCmd set command implementation
-// @param key string
-// @param value string
-func SetCmd(key string, value string) {
-	storage.StringDb[key] = value
-	fmt.Println(0)
 }
