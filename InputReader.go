@@ -2,35 +2,40 @@ package main
 
 import (
 	"andiDB/command"
+	"encoding/json"
 	"fmt"
 	"net/http"
-    "encoding/json"
 )
+
+// InputPost struct handler for user input
+type InputPost struct {
+	Command string        `json:"cmd"`
+	Key     string        `json:"key"`
+	Values  []interface{} `json:"values"`
+}
 
 // Input entrypoint for HTTP client
 func Input(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("handled!")
-	var c command.Command
-	_ = c
+	inputPost, err := ReadPost(r)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
-    ReadPost(r)
+	command.Cmd(inputPost.Command, inputPost.Key, inputPost.Values)
 }
 
 // ReadPost extract post request from http client
-func ReadPost(r *http.Request) {
-    // fmt.Println(r)
-    // query := r.URL.Query()
-    // fmt.Println(query)
+func ReadPost(r *http.Request) (InputPost, error) {
+	decoder := json.NewDecoder(r.Body)
 
+	var data InputPost
+	err := decoder.Decode(&data)
+	if err != nil {
+		fmt.Println(err)
+		return data, err
+	}
 
-    decoder := json.NewDecoder(r.Body)
-
-    var data interface{}
-    err := decoder.Decode(&data)
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
-
-    fmt.Println(data)
+	fmt.Println(data)
+	return data, nil
 }

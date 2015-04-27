@@ -3,10 +3,15 @@ Key-Value Pair database written in Golang
 
 
 ### client
-example
+example, build client first
 
 ```
-go build -v && ./client lrange loc 0 -1
+go build -v
+```
+
+
+```
+./client lrange loc 0 -1
 ```
 
 ```
