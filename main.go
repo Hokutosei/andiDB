@@ -5,10 +5,20 @@ import (
 	"net/http"
 )
 
+const (
+	serverPort = ":8000"
+)
+
 // main program entrypoint
 func main() {
-	fmt.Println("started!")
+
+	go AsyncDumpDb()
+
+	// print server data status/info
+	go func() {
+		fmt.Println("server listening to: ", serverPort)
+	}()
 
 	http.HandleFunc("/post", Input)
-	http.ListenAndServe(":8000", nil)
+	http.ListenAndServe(serverPort, nil)
 }

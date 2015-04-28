@@ -27,20 +27,21 @@ func Cmd(cmd string, key string, values []interface{}, resultChan chan ResponseD
 
 	// get command condition
 	case get:
-		resp := GetCmd(key)
-		resultChan <- ResponseData{200, resp}
+		// get()
+		resultChan <- ResponseData{200, GetCmd(key)}
 
 	// set command condition
 	case set:
 		// validate if values length has more than 1
 		if len(values) > 1 {
 			fmt.Println("must have only one value")
-			d := ResponseData{500, ""}
-			resultChan <- d
+
+			resultChan <- ResponseData{500, ""}
 			return
 		}
-		resp := SetCmd(key, values[0].(string))
-		d := ResponseData{200, resp}
+
+		// set()
+		d := ResponseData{200, SetCmd(key, values[0].(string))}
 		resultChan <- d
 
 	case lpush:

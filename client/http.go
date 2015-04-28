@@ -1,12 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"bytes"
-	"net/http"
-	"io/ioutil"
-	"os"
 	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+	"os"
 )
 
 // post to server
@@ -14,14 +14,14 @@ func post(cmd string, key string, values []string) {
 	url := "http://localhost:8000/post"
 
 	data := map[string]interface{}{
-		"cmd": cmd,
-		"key": key,
+		"cmd":    cmd,
+		"key":    key,
 		"values": values,
 	}
 	mJSON, _ := json.Marshal(data)
 	content := bytes.NewReader(mJSON)
 
-	req, _ := http.NewRequest("POST",url, content)
+	req, _ := http.NewRequest("POST", url, content)
 
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", "andiDB")
@@ -39,15 +39,11 @@ func post(cmd string, key string, values []string) {
 	fmt.Println("body: ", string(body))
 }
 
-
 func main() {
-	fmt.Println("post")
-
 	argsWithProg := os.Args
 
 	command := argsWithProg[1]
 	key := argsWithProg[2]
-	fmt.Println(command)
 
 	// values holder
 	values := []string{}
@@ -55,6 +51,5 @@ func main() {
 		values = append(values, argsWithProg[i])
 	}
 
-	fmt.Println(values)
 	post(command, key, values)
 }

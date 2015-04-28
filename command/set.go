@@ -1,8 +1,8 @@
 package command
 
-// SetCmd set command implementation
 import "andiDB/storage"
 
+// SetCmd set command implementation
 // @param key string
 // @param value string
 func SetCmd(key string, value string) string {

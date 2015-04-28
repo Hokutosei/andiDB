@@ -1,8 +1,8 @@
 package command
 
-// GetCmd get command implementation
 import "andiDB/storage"
 
+// GetCmd get command implementation
 // @param key string
 // @param value string
 func GetCmd(key string) string {

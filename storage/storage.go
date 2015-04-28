@@ -6,3 +6,10 @@ var (
 
 	SliceDb = map[string][]interface{}{}
 )
+
+// AllDb return all db in slice
+func AllDb() []interface{} {
+	db := []interface{}{StringDb, SliceDb}
+
+	return db
+}
