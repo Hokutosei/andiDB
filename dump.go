@@ -27,6 +27,7 @@ func AsyncDumpDb() {
 	}
 }
 
+// dump databases to fileNamePrefix
 func dump() {
 	dbs := storage.AllDb()
 	fmt.Println(dbs)
@@ -39,6 +40,7 @@ func dump() {
 	LoadFile()
 }
 
+// serializeToBson convert json/struct data to BSON
 func serializeToBson(databases ...interface{}) ([]byte, error) {
 	data, err := bson.Marshal(databases)
 	if err != nil {
@@ -50,6 +52,7 @@ func serializeToBson(databases ...interface{}) ([]byte, error) {
 	return data, nil
 }
 
+// writeToFile attempt to write byteArr to file
 func writeToFile(p ...byte) {
 
 	fmt.Println("writing to: ", fileNamePrefix)
@@ -75,8 +78,10 @@ func writeToFile(p ...byte) {
 	if err != nil {
 		fmt.Println(n, err)
 	}
+	fmt.Printf("wrote %d bytes: ", n)
 }
 
+// LoadFile load database file
 func LoadFile() {
 	b, err := ioutil.ReadFile(fileNamePrefix)
 	if err != nil {

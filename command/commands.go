@@ -48,5 +48,10 @@ func Cmd(cmd string, key string, values []interface{}, resultChan chan ResponseD
 		// lpush()
 		resultChan <- ResponseData{200, LpushCmd(key, values)}
 
+	case lrange:
+
+		// lrange()
+		resultChan <- ResponseData{200, LrangeCmd(key, values)}
+
 	}
 }
