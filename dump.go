@@ -5,6 +5,8 @@ import (
 	"time"
 
 	"andiDB/storage"
+
+	"gopkg.in/mgo.v2/bson"
 )
 
 var (
@@ -23,4 +25,14 @@ func AsyncDumpDb() {
 func dump() {
 	dbs := storage.AllDb()
 	fmt.Println(dbs)
+	serializeToBson(dbs...)
+}
+
+func serializeToBson(databases ...interface{}) {
+	data, err := bson.Marshal(databases)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Printf("%q", data)
 }
