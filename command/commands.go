@@ -12,6 +12,8 @@ const (
 	set    = "set"
 	lpush  = "lpush"
 	lrange = "lrange"
+
+	keys = "keys"
 )
 
 // ResponseData data struct to return to user
@@ -53,5 +55,9 @@ func Cmd(cmd string, key string, values []interface{}, resultChan chan ResponseD
 		// lrange()
 		resultChan <- ResponseData{200, LrangeCmd(key, values)}
 
+	case keys:
+
+		// keys()
+		KeysCmd(key, values)
 	}
 }

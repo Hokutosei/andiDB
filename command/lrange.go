@@ -22,6 +22,8 @@ func LrangeCmd(key string, values []interface{}) []interface{} {
 		return item
 	case s != 0 && e == -1:
 		return x
+	case s == -1:
+		return x
 	case len(item) == 0:
 		return x
 	}

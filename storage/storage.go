@@ -7,9 +7,15 @@ var (
 	SliceDb = map[string][]interface{}{}
 )
 
+type ListStruct map[string]interface{}
+
 // AllDb return all db in slice
 func AllDb() []interface{} {
-	db := []interface{}{StringDb, SliceDb}
+	dbList := []ListStruct{StringDb, SliceDb}
 
-	return db
+	return dbList
+}
+
+func extractKeys() {
+	// strDb :=
 }
