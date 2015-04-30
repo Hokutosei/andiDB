@@ -16,6 +16,9 @@ type MapOfSlices map[string][]string
 func KeysCmd(key string, values []interface{}) []string {
 	dbList := storage.AllDb()
 
+	fmt.Println(values)
+	fmt.Println("values debug---")
+
 	var keys []string
 
 	// loop through all hashes, find data types

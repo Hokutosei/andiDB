@@ -22,6 +22,7 @@ func LrangeCmd(key string, values []interface{}) []string {
 	// test some condition if
 	// user wants whole range
 	// or invalid input
+	// catch some invalid, and prevent program crash.
 	switch {
 	case s == 0 && e == -1:
 		return item
