@@ -87,31 +87,15 @@ func LoadFile() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(b)
-}
 
-// func LoadFile() {
-// 	fi, err := os.Open(fileNamePrefix)
-// 	if err != nil {
-// 		fmt.Println(err)
-// 		return
-// 	}
-//
-// 	defer func() {
-// 		if err := fi.Close(); err != nil {
-// 			fmt.Println(err)
-// 			panic(err)
-// 		}
-// 	}()
-//
-// 	buf := make([]byte, 1024)
-// 	for {
-// 		n, err := fi.Read(buf)
-// 		if err != nil && err != io.EOF {
-// 			fmt.Println(err)
-// 			return
-// 		}
-// 		fmt.Println(n)
-// 	}
-//
-// }
+	fmt.Println("files read..")
+	var s interface{}
+	err = bson.Unmarshal(b, &s)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	// for the meantime print the result
+	fmt.Println(s)
+}
