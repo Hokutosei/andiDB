@@ -10,34 +10,33 @@ import (
 type MapOfString map[string]string
 
 // MapOfSlices type for map of slices use for string extraction
-type MapOfSlices map[string][]interface{}
+type MapOfSlices map[string][]string
 
 // KeysCmd dump all database keys in list/ slice
 func KeysCmd(key string, values []interface{}) []string {
 	dbList := storage.AllDb()
 
-	fmt.Println(dbList)
-	fmt.Println(len(dbList))
-
 	var keys []string
+
+	// loop through all hashes, find data types
+	// and append keys from results
 	for i := 0; i < len(dbList); i++ {
 		iDb := dbList[i]
+		fmt.Println(typeof(iDb))
 
 		switch t := iDb.(type) {
 
 		case map[string]string:
 			extractKeysOfString(iDb.(map[string]string), &keys)
 
-		case map[string][]interface{}:
-			extractKeysFromSliceIntrface(iDb.(map[string][]interface{}), &keys)
+		case map[string][]string:
+			extractKeysFromSliceIntrface(iDb.(map[string][]string), &keys)
 
 		default:
 			_ = t
 		}
 
 	}
-	fmt.Println("keys total--")
-	fmt.Println(keys)
 	return keys
 }
 

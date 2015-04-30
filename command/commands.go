@@ -1,6 +1,9 @@
 package command
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 // Command Database command interface
 type Command interface {
@@ -25,6 +28,7 @@ type ResponseData struct {
 // Cmd command selector
 // mechanism for distinguishing command/task
 func Cmd(cmd string, key string, values []interface{}, resultChan chan ResponseData) {
+	start := time.Now()
 	switch cmd {
 
 	// get command condition
@@ -60,4 +64,7 @@ func Cmd(cmd string, key string, values []interface{}, resultChan chan ResponseD
 		// keys()
 		resultChan <- ResponseData{200, KeysCmd(key, values)}
 	}
+
+	fmt.Println("Cmd took: ", time.Since(start))
+
 }

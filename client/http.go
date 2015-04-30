@@ -34,9 +34,8 @@ func post(cmd string, key string, values []string) {
 	}
 	defer resp.Body.Close()
 
-	fmt.Println("response: ", resp.Status)
 	body, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println("body: ", string(body))
+	fmt.Println(string(body))
 }
 
 func main() {
