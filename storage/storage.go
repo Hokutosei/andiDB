@@ -4,18 +4,12 @@ package storage
 var (
 	StringDb = map[string]string{}
 
-	SliceDb = map[string][]interface{}{}
+	SliceDb = map[string][]string{}
 )
-
-type ListStruct map[string]interface{}
 
 // AllDb return all db in slice
 func AllDb() []interface{} {
-	dbList := []ListStruct{StringDb, SliceDb}
+	dbList := []interface{}{StringDb, SliceDb}
 
 	return dbList
-}
-
-func extractKeys() {
-	// strDb :=
 }

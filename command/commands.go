@@ -58,6 +58,6 @@ func Cmd(cmd string, key string, values []interface{}, resultChan chan ResponseD
 	case keys:
 
 		// keys()
-		KeysCmd(key, values)
+		resultChan <- ResponseData{200, KeysCmd(key, values)}
 	}
 }
