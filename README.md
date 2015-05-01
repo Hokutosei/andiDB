@@ -16,13 +16,12 @@ example, build client first
 
 ```
 // root(andiDB server)
-go build -v
+./bin/andidb-server
 ```
 
 ```
 // andiDB http client
-// cd client/
-go build -v
+./bin/andidb-http-client
 
 ```
 ### commands
@@ -31,33 +30,41 @@ go build -v
 #### set
 
 ```bash
-$ ./client set server1 10.0.1.1
+$ ./bin/andidb-http-client set server1 10.0.1.1
 {"status":200,"response":"ok"}
 ```
 
 #### get
 ```bash
-$ ./client get server1
+$ ./bin/andidb-http-client get server1
 {"status":200,"response":"10.0.1.1"}
 ```
 
 #### lpush
 ```bash
-$ ./client lpush servers 10.0.1.1
-$ ./client lpush servers 10.0.1.5
-$ ./client lpush servers 10.0.1.6
-$ ./client lpush servers 10.0.1.4
-$ ./client lpush servers 10.0.1.7
+$ ./bin/andidb-http-client lpush servers 10.0.1.1
+$ ./bin/andidb-http-client lpush servers 10.0.1.5
+$ ./bin/andidb-http-client lpush servers 10.0.1.6
+$ ./bin/andidb-http-client lpush servers 10.0.1.4
+$ ./bin/andidb-http-client lpush servers 10.0.1.7
 ```
 
 #### lrange
 ```bash
-./client lrange servers 0 1
+./bin/andidb-http-client lrange servers 0 1
 {"status":200,"response":["10.0.1.1"]}
 
-./client lrange servers 0 3
+./bin/andidb-http-client lrange servers 0 3
 {"status":200,"response":["10.0.1.1","10.0.1.5","10.0.1.6"]}
 
-./client lrange servers 0 -1
+./bin/andidb-http-client lrange servers 0 -1
 {"status":200,"response":["10.0.1.1","10.0.1.5","10.0.1.6","10.0.1.4","10.0.1.7"]}
+```
+
+### keys
+
+regex string should be passed on the values for key search
+
+```bash
+./bin/andidb-http-client keys *
 ```
