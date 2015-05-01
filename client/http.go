@@ -7,10 +7,11 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	_ "testing"
 )
 
 // post to server
-func post(cmd string, key string, values []string) {
+func Post(cmd string, key string, values []string) {
 	url := "http://localhost:8000/post"
 
 	data := map[string]interface{}{
@@ -38,6 +39,14 @@ func post(cmd string, key string, values []string) {
 	fmt.Println(string(body))
 }
 
+// func BenchmarkPost(b *testing.B) {
+// 	for i := 0; i < b.N; i++ {
+// 		fmt.Sprintf("h: %d", i)
+//
+// 		Post("set", "server1", "10.0.1.1")
+// 	}
+// }
+
 func main() {
 	argsWithProg := os.Args
 
@@ -52,5 +61,5 @@ func main() {
 		values = append(values, argsWithProg[i])
 	}
 
-	post(command, key, values)
+	Post(command, key, values)
 }
