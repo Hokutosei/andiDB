@@ -47,12 +47,11 @@
 <p>example, build client first</p>
 
 <pre><code>// root(andiDB server)
-go build -v
+./bin/andidb-server
 </code></pre>
 
 <pre><code>// andiDB http client
-// cd client/
-go build -v
+./bin/andidb-http-client
 
 </code></pre>
 
@@ -62,35 +61,42 @@ go build -v
 <h4>
 <a id="set" class="anchor" href="#set" aria-hidden="true"><span class="octicon octicon-link"></span></a>set</h4>
 
-<div class="highlight highlight-bash"><pre>$ ./client <span class="pl-c1">set</span> server1 10.0.1.1
+<div class="highlight highlight-bash"><pre>$ ./bin/andidb-http-client <span class="pl-c1">set</span> server1 10.0.1.1
 {<span class="pl-s"><span class="pl-pds">"</span>status<span class="pl-pds">"</span></span>:200,<span class="pl-s"><span class="pl-pds">"</span>response<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>ok<span class="pl-pds">"</span></span>}</pre></div>
 
 <h4>
 <a id="get" class="anchor" href="#get" aria-hidden="true"><span class="octicon octicon-link"></span></a>get</h4>
 
-<div class="highlight highlight-bash"><pre>$ ./client get server1
+<div class="highlight highlight-bash"><pre>$ ./bin/andidb-http-client get server1
 {<span class="pl-s"><span class="pl-pds">"</span>status<span class="pl-pds">"</span></span>:200,<span class="pl-s"><span class="pl-pds">"</span>response<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>10.0.1.1<span class="pl-pds">"</span></span>}</pre></div>
 
 <h4>
 <a id="lpush" class="anchor" href="#lpush" aria-hidden="true"><span class="octicon octicon-link"></span></a>lpush</h4>
 
-<div class="highlight highlight-bash"><pre>$ ./client lpush servers 10.0.1.1
-$ ./client lpush servers 10.0.1.5
-$ ./client lpush servers 10.0.1.6
-$ ./client lpush servers 10.0.1.4
-$ ./client lpush servers 10.0.1.7</pre></div>
+<div class="highlight highlight-bash"><pre>$ ./bin/andidb-http-client lpush servers 10.0.1.1
+$ ./bin/andidb-http-client lpush servers 10.0.1.5
+$ ./bin/andidb-http-client lpush servers 10.0.1.6
+$ ./bin/andidb-http-client lpush servers 10.0.1.4
+$ ./bin/andidb-http-client lpush servers 10.0.1.7</pre></div>
 
 <h4>
 <a id="lrange" class="anchor" href="#lrange" aria-hidden="true"><span class="octicon octicon-link"></span></a>lrange</h4>
 
-<div class="highlight highlight-bash"><pre>./client lrange servers 0 1
+<div class="highlight highlight-bash"><pre>./bin/andidb-http-client lrange servers 0 1
 {<span class="pl-s"><span class="pl-pds">"</span>status<span class="pl-pds">"</span></span>:200,<span class="pl-s"><span class="pl-pds">"</span>response<span class="pl-pds">"</span></span>:[<span class="pl-s"><span class="pl-pds">"</span>10.0.1.1<span class="pl-pds">"</span></span>]}
 
-./client lrange servers 0 3
+./bin/andidb-http-client lrange servers 0 3
 {<span class="pl-s"><span class="pl-pds">"</span>status<span class="pl-pds">"</span></span>:200,<span class="pl-s"><span class="pl-pds">"</span>response<span class="pl-pds">"</span></span>:[<span class="pl-s"><span class="pl-pds">"</span>10.0.1.1<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>10.0.1.5<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>10.0.1.6<span class="pl-pds">"</span></span>]}
 
-./client lrange servers 0 -1
+./bin/andidb-http-client lrange servers 0 -1
 {<span class="pl-s"><span class="pl-pds">"</span>status<span class="pl-pds">"</span></span>:200,<span class="pl-s"><span class="pl-pds">"</span>response<span class="pl-pds">"</span></span>:[<span class="pl-s"><span class="pl-pds">"</span>10.0.1.1<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>10.0.1.5<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>10.0.1.6<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>10.0.1.4<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>10.0.1.7<span class="pl-pds">"</span></span>]}</pre></div>
+
+<h3>
+<a id="keys" class="anchor" href="#keys" aria-hidden="true"><span class="octicon octicon-link"></span></a>keys</h3>
+
+<p>regex string should be passed on the values for key search</p>
+
+<div class="highlight highlight-bash"><pre>./bin/andidb-http-client keys <span class="pl-k">*</span></pre></div>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/Hokutosei/andiDB">Andidb</a> is maintained by <a href="https://github.com/Hokutosei">Hokutosei</a>.</span>
