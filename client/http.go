@@ -56,8 +56,8 @@ func main() {
 	// values holder
 	values := []string{}
 	for i := 3; i < len(argsWithProg); i++ {
-		fmt.Println(argsWithProg[i])
-		fmt.Println("args with prog debug")
+		// fmt.Println(argsWithProg[i])
+		// fmt.Println("args with prog debug")
 		values = append(values, argsWithProg[i])
 	}
 
